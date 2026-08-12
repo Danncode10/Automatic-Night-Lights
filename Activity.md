@@ -2,76 +2,66 @@
 
 ## Project Title
 
-Photoresistor-Based Automatic Night-Light Monitor
+Photoresistor Automatic Night Light
 
 ## Project Description
 
-Build and test an automatic night-light or street-lamp system using a photoresistor (also called an LDR), one LED, a 16x2 I2C LCD, and resistors. Every 200 milliseconds, the LCD and Serial Monitor show whether it is `NIGHT` or `LIGHT`; the LED turns on at night and turns off when there is light.
+Build an automatic night light using a photoresistor, resistors, and an LED. The Arduino reads the photoresistor on A0 every 200 milliseconds. When the room is dark, it turns the LED on. When there is light, it turns the LED off. The Serial Monitor shows the light reading, status, and LED state.
 
 ## Objectives
 
-- Build a photoresistor voltage-divider circuit.
-- Connect the voltage-divider output to an Arduino analog input.
-- Read and display an ambient-light value from 0 to 1023.
-- Show `NIGHT` or `LIGHT` on a 16x2 I2C LCD.
-- Turn an LED on when it is dark and off when it is bright.
-- Test the sensor by covering and uncovering the photoresistor.
-- Identify a light level that could switch on an automatic night light or street lamp.
+- Connect a photoresistor to Arduino A0.
+- Connect an LED safely using a 220 ohm resistor.
+- Turn the LED on in darkness and off in light.
+- Test the circuit by covering and uncovering the photoresistor.
 
 ## Required Components
 
 | Quantity | Component | Notes |
 | --- | --- | --- |
 | 1 | Arduino Uno / compatible board | Main controller |
-| 1 | Breadboard | For the voltage divider |
-| 1 | Photoresistor / LDR | Light sensor from the kit |
-| 1 | 10 kOhm resistor | Voltage-divider resistor |
+| 1 | Breadboard | For the circuit |
+| 1 | Photoresistor / LDR | Light sensor |
+| 1 | 10 kOhm resistor | Used with the photoresistor |
 | 1 | LED | Represents the night light or street lamp |
 | 1 | 220 ohm resistor | Protects the LED and Arduino pin |
-| 1 | LCM1602 IIC V1 16x2 LCD | 4-pin I2C LCD module |
-| 1 | USB cable | Power, programming, and Serial Monitor |
-| Several | Jumper wires | For power, ground, and A0 signal |
+| 1 | USB cable | Power, upload, and Serial Monitor |
+| Several | Jumper wires | Connections |
 
 ## Pin Assignment
 
-| Arduino Pin | Connected Component | Purpose |
+| Arduino Pin | Connect To | Purpose |
 | --- | --- | --- |
-| A0 | Breadboard row shared by the photoresistor and 10 kOhm resistor | Reads the light level |
-| A4 / SDA | LCD SDA | I2C data line |
-| A5 / SCL | LCD SCL | I2C clock line |
-| D2 | LED long leg through 220 ohm resistor | Turns the night light on and off |
-| 5V | One photoresistor leg | Voltage-divider power |
-| 5V | LCD VCC | LCD power |
-| GND | 10 kOhm resistor leg, LCD GND, and LED short leg | Ground |
+| A0 | Shared photoresistor and 10 kOhm resistor row | Reads the light level |
+| D2 | LED long leg through 220 ohm resistor | Turns the LED on and off |
+| 5V | One photoresistor leg | Power |
+| GND | 10 kOhm resistor leg and LED short leg | Ground |
 
 ## Expected Behavior
 
-Open the Serial Monitor at **9600 baud**. Every 200 milliseconds, the LCD and Serial Monitor show a photoresistor reading from 0 to 1023 and a status. Covering the photoresistor normally lowers the value, displays `NIGHT`, and turns the LED on. Uncovering it normally raises the value, displays `LIGHT`, and turns the LED off. The default darkness threshold is 400, but it may need adjustment for your room.
+Open Serial Monitor at **9600 baud**. Cover the photoresistor: the reading normally gets lower, the status becomes `NIGHT`, and the LED turns on. Uncover the photoresistor: the reading normally gets higher, the status becomes `LIGHT`, and the LED turns off.
+
+The default dark setting is `400`. If your LED changes at the wrong brightness, adjust `DARK_THRESHOLD` in the sketch.
 
 ## Build Checklist
 
 - [ ] Connect Arduino 5V to one photoresistor leg.
-- [ ] Connect the other photoresistor leg to Arduino A0.
-- [ ] Connect a 10 kOhm resistor between the A0 junction and Arduino GND.
-- [ ] Connect LCD VCC to 5V, GND to GND, SDA to A4, and SCL to A5.
-- [ ] Connect the LED long leg to D2 through a 220 ohm resistor; connect its short leg to GND.
-- [ ] Install the `LiquidCrystal_I2C` library in Arduino IDE if it is not installed.
+- [ ] Connect the other photoresistor leg, one 10 kOhm resistor leg, and a jumper to A0 on the same breadboard row.
+- [ ] Connect the other 10 kOhm resistor leg to GND.
+- [ ] Connect LED long leg to D2 through a 220 ohm resistor.
+- [ ] Connect LED short leg to GND.
 - [ ] Upload `arduino/AutomaticNightLights/AutomaticNightLights.ino`.
 - [ ] Open Serial Monitor at 9600 baud.
-- [ ] Cover and uncover the photoresistor, then record how the reading changes.
-- [ ] Confirm the LCD changes between `Status: NIGHT` and `Status: LIGHT`.
-- [ ] Confirm the LED turns on for `NIGHT` and off for `LIGHT`.
+- [ ] Cover and uncover the photoresistor to test the LED.
 
 ## Observations
 
-| Test | Photoresistor reading | LCD status | LED | Observation |
+| Test | Photoresistor reading | Status | LED | Observation |
 | --- | --- | --- | --- | --- |
 | Photoresistor uncovered / room light |  |  |  |  |
 | Photoresistor partly covered |  |  |  |  |
 | Photoresistor fully covered |  |  |  |  |
 
-Use the covered and uncovered values to choose a darkness threshold for the LED night-light circuit.
-
 ## Submission Notes
 
-Submit the sketch folder `arduino/AutomaticNightLights/`, this activity guide, and `docs/connections.md`. Include a brief note describing the photoresistor value that changed the LCD from `LIGHT` to `NIGHT`.
+Submit the sketch folder `arduino/AutomaticNightLights/`, this activity guide, and `docs/connections.md`.
